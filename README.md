@@ -1,5 +1,14 @@
 # Ansible 초급 → AWS(SSM) → Docker 운영(rolling/blue-green) 실무 레포
 
+## VSCode 에서 WSL 사용
+![alt text](image.png)
+![alt text](image-1.png)
+### WSL 연결 또는 Linux 설치 없을 경우 배포판을 사용하여 설치 후 연동
+### 목록 중 연결닫기 하면 다시 윈도우 파워 셸
+
+
+
+
 이 레포는 **Ansible 초급자**가 다음까지 “레포 형태로” 실습하면서 익히도록 구성했습니다.
 
 - Ansible 기본(인벤토리/변수/템플릿/핸들러/Role)
