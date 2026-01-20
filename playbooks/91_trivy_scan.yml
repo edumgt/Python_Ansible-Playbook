@@ -1,5 +1,5 @@
 ---
-- name: "91) Trivy: Docker 이미지 취약점 스캔 + 리포트 생성 (JSON/TXT/HTML)"
+- name: "Trivy: Docker 이미지 취약점 스캔 + 리포트 생성 (JSON/TXT/HTML)"
   hosts: localhost
   connection: local
   become: true
@@ -7,7 +7,8 @@
   vars:
     lab_root: /opt/security-lab
     reports_dir: "{{ lab_root }}/reports"
-    scan_image: "nginx:latest"
+    # scan_image: "nginx:latest"
+    scan_image: "alpine/psql:18.1"
 
     # HTML 템플릿 (Trivy 공식 템플릿)
     trivy_html_tpl_url: "https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/html.tpl"

@@ -10,6 +10,8 @@ web_root: /var/www/html
 install_docker: true
 enable_crowdsec_lab: true
 
+# scan_image: "alpine:3.21"
+
 # AWS 기본값 (학습용)
 aws_region: ap-northeast-2
 aws_tags:
