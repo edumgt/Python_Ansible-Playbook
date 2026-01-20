@@ -1,0 +1,145 @@
+---
+- name: Docker report (HTML) and serve via python http.server
+  hosts: all
+  gather_facts: true
+
+  vars:
+    report_dir: "{{ ansible_env.HOME }}/docker-report"
+    report_file: "{{ report_dir }}/index.html"
+    http_port: 8080
+
+  tasks:
+    - name: Ensure report directory exists
+      ansible.builtin.file:
+        path: "{{ report_dir }}"
+        state: directory
+        mode: "0755"
+
+    - name: Check python3 exists
+      ansible.builtin.command: bash -lc "command -v python3"
+      register: python3_check
+      changed_when: false
+      failed_when: false
+
+    - name: Check docker CLI exists
+      ansible.builtin.command: bash -lc "command -v docker"
+      register: docker_check
+      changed_when: false
+      failed_when: false
+
+    - name: Docker context (if docker exists)
+      ansible.builtin.command: bash -lc "docker context show"
+      register: docker_context
+      changed_when: false
+      failed_when: false
+      when: docker_check.rc == 0
+
+    - name: Docker version (if docker exists)
+      ansible.builtin.command: bash -lc "docker version"
+      register: docker_version
+      changed_when: false
+      failed_when: false
+      when: docker_check.rc == 0
+
+    - name: Docker info (if docker exists)
+      ansible.builtin.command: bash -lc "docker info"
+      register: docker_info
+      changed_when: false
+      failed_when: false
+      when: docker_check.rc == 0
+
+    # JSON line format → 템플릿에서 from_json으로 표(table) 만들기
+    - name: Docker images as JSON lines
+      ansible.builtin.command: bash -lc "docker image ls --format '{{\"{{json .}}\"}}'"
+      register: docker_images
+      changed_when: false
+      failed_when: false
+      when: docker_check.rc == 0
+
+    - name: Docker containers as JSON lines
+      ansible.builtin.command: bash -lc "docker ps -a --format '{{\"{{json .}}\"}}'"
+      register: docker_containers
+      changed_when: false
+      failed_when: false
+      when: docker_check.rc == 0
+
+    - name: Render HTML report
+      ansible.builtin.template:
+        src: "docker_report.html.j2"
+        dest: "{{ report_file }}"
+        mode: "0644"
+      vars:
+        _now: "{{ ansible_date_time.iso8601 }}"
+        docker_installed: "{{ docker_check.rc == 0 }}"
+        python3_installed: "{{ python3_check.rc == 0 }}"
+        docker_context_out: "{{ docker_context.stdout | default('') }}"
+        docker_context_err: "{{ docker_context.stderr | default('') }}"
+        docker_version_out: "{{ docker_version.stdout | default('') }}"
+        docker_version_err: "{{ docker_version.stderr | default('') }}"
+        docker_info_out: "{{ docker_info.stdout | default('') }}"
+        docker_info_err: "{{ docker_info.stderr | default('') }}"
+        docker_images_lines: "{{ docker_images.stdout_lines | default([]) }}"
+        docker_images_err: "{{ docker_images.stderr | default('') }}"
+        docker_containers_lines: "{{ docker_containers.stdout_lines | default([]) }}"
+        docker_containers_err: "{{ docker_containers.stderr | default('') }}"
+
+    # ---- http server 관리 (기존 PID 있으면 종료 후 재실행) ----
+    - name: Check existing server pid file
+      ansible.builtin.stat:
+        path: "{{ report_dir }}/server.pid"
+      register: pid_stat
+
+    - name: Read existing server pid
+      ansible.builtin.command: bash -lc "cat '{{ report_dir }}/server.pid'"
+      register: existing_pid
+      changed_when: false
+      failed_when: false
+      when: pid_stat.stat.exists
+
+    - name: Stop existing server if running
+      ansible.builtin.shell: |
+        set -e
+        PID="{{ existing_pid.stdout | trim }}"
+        if [ -n "$PID" ] && kill -0 "$PID" 2>/dev/null; then
+          kill "$PID" || true
+          sleep 1
+        fi
+      args:
+        executable: /bin/bash
+      changed_when: false
+      failed_when: false
+      when: pid_stat.stat.exists
+
+    - name: Check port 8080 is free
+      ansible.builtin.shell: |
+        set -e
+        if ss -lnt 2>/dev/null | awk '{print $4}' | grep -qE '(:|\\.)8080$'; then
+          echo "PORT_IN_USE"
+          exit 2
+        fi
+      args:
+        executable: /bin/bash
+      register: port_check
+      changed_when: false
+      failed_when: port_check.rc not in [0]
+      ignore_errors: false
+
+    - name: Start python http.server (8080) serving report directory
+      ansible.builtin.shell: |
+        set -e
+        cd "{{ report_dir }}"
+        nohup python3 -m http.server {{ http_port }} --directory "{{ report_dir }}" \
+          > "{{ report_dir }}/server.log" 2>&1 &
+        echo $! > "{{ report_dir }}/server.pid"
+      args:
+        executable: /bin/bash
+      changed_when: true
+      when: python3_check.rc == 0
+
+    - name: Show how to open
+      ansible.builtin.debug:
+        msg:
+          - "HTML saved: {{ report_file }}"
+          - "Open in browser: http://localhost:{{ http_port }}/"
+          - "Server log: {{ report_dir }}/server.log"
+          - "To stop: kill $(cat {{ report_dir }}/server.pid)  (if exists)"
