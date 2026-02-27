@@ -1,12 +1,13 @@
 ---
 - name: Run nginx container on Docker hosts
-  hosts: docker_hosts
+  hosts: all
+  become: true
   gather_facts: false
 
   tasks:
     - name: Pull nginx image
       community.docker.docker_image:
-        name: nginx
+        name: nginx:latest
         source: pull
 
     - name: Run nginx container
