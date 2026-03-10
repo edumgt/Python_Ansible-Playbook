@@ -225,6 +225,54 @@ find curriculum -maxdepth 2 -type f -name 'playbook.yml' | wc -l
 
 ---
 
+## 10. 전체 학습 로드맵 (입문자 기준)
+
+아래 순서대로 진행하면 Ansible 자동화 기초부터 AWS/OpenStack 연결까지 한 흐름으로 학습할 수 있습니다.
+
+- 실행용 체크리스트 문서: `./study_plan.md`
+
+1. `lecture01~10`: Ansible 기초 문법, 인벤토리, 변수, 템플릿, Role 재사용 구조를 익힌다.
+2. `lecture11~18`: 웹/보안 운영 자동화를 수행하고 Docker는 보조 실습 범위에서 체험한다.
+3. `lecture19~25`: AWS 리소스(SSM/VPC/EC2/S3) 생성과 정리를 Ansible로 자동화한다.
+4. `lecture26~32`: Linux/VirtualBox 기반 이해를 고정하고 Docker 개념을 최소 실습으로 연결한다.
+5. `lecture33~38`: k3s/k8s는 구조와 배포 흐름 개요 중심으로 학습한다.
+6. `lecture39~42`: AWS와 OpenStack 개념을 매핑해 클라우드 해석 능력을 확장한다.
+7. `lecture43~45`: MicroStack -> DevStack -> Kolla Ansible 순서로 OpenStack 실체를 체험한다.
+
+### 권장 주차 편성 (예시: 9주 x 5강)
+
+- 1주차: `lecture01~05` (Ansible 기초)
+- 2주차: `lecture06~10` (템플릿/Role/정책 자동화)
+- 3주차: `lecture11~15` (운영 자동화 + Docker 보조 실습)
+- 4주차: `lecture16~20` (보안 자동화 + AWS 시작)
+- 5주차: `lecture21~25` (AWS 자동화 완성)
+- 6주차: `lecture26~30` (인프라 기반 + 컨테이너 기초)
+- 7주차: `lecture31~35` (Compose/k3s 개요)
+- 8주차: `lecture36~40` (k8s 개요 + Cloud Mapping)
+- 9주차: `lecture41~45` (OpenStack 체험과 AWS 연결 정리)
+
+---
+
+## 11. 모듈별 핵심 성과물
+
+| Module | 학습 결과 | 대표 산출물 |
+|---|---|---|
+| A (01-10) | Ansible 플레이북/변수/Role 구조를 스스로 작성 | `lecture.yml`, `playbook.yml`, 실행 로그 |
+| B (11-18) | 운영 자동화 패턴(웹/보안) 적용 | 서비스 배포/점검 태스크, 회고 노트 |
+| C (19-25) | AWS 자원 생성/정리 자동화 | VPC/EC2/S3 실행 결과, 출력값 정리 |
+| D (26-32) | Linux/가상화 기반 이해 + Docker 최소 체험 | 네트워크/컨테이너 실습 기록 |
+| E (33-38) | k3s/k8s 구조와 선언형 배포 흐름 이해 | 배포/관측 개요 정리 문서 |
+| F (39-42) | OpenStack/AWS 개념 매핑 | 리소스 대응표, 운영 관점 비교 |
+| G (43-45) | OpenStack 입문 실체 체험 | Horizon 확인 기록, 3방식 비교표 |
+
+### 최종 학습 완료 기준
+
+- 45개 강의를 순서대로 실행하며 강의별 `README.md` 체크리스트를 완료한다.
+- 각 강의에서 최소 1개 실행 로그(또는 스크린샷)와 1개 회고 노트를 남긴다.
+- AWS/OpenStack 리소스 흐름을 Ansible 자동화 관점으로 설명할 수 있다.
+
+---
+
 ## 12. 추가 확장 학습 트랙 (45강 반영)
 
 기본 45강 이후 실무형으로 확장하기 위한 선택 심화 트랙입니다.  
