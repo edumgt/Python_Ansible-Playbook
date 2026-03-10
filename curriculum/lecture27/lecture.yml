@@ -68,14 +68,14 @@ advanced_integration:
   track_name: OpenStack 입문 체험(MicroStack/DevStack/Kolla Ansible)
   track_doc: ../../curriculum/advanced_tracks.yml
   integration_objective: 'VirtualBox 네트워크: NAT/Host-only/Bridged 학습 결과를 OpenStack
-    DevStack 또는 MicroStack 연계 확장 시나리오와 연결한다.'
+    입문 체험 순서(MicroStack -> DevStack -> Kolla Ansible)와 연결한다.'
   addon_practice:
-  - 단일 노드 DevStack 또는 MicroStack 실습
-  - Horizon 로그인 및 리소스 확인
+  - MicroStack에서 Horizon Networks/Routers/Floating IPs 화면을 확인하고 VirtualBox 네트워크 모드와 대응
+  - DevStack과 Kolla Ansible에서 VM NIC 연결 흐름과 Neutron 구성 요소를 비교
   developer_view:
-    backend: VM과 컨테이너 차이, 인프라 계층 이해
-    frontend: 콘솔 기반 리소스 관리와 네트워크 분리 구조 시각적 이해
-  aws_bridge: OpenStack은 EC2/VPC/EBS 개념을 내부적으로 구성한 형태와 유사
+    backend: VM NIC/NAT/브리지 개념을 Neutron 포트/네트워크/라우터와 연결해 이해
+    frontend: Horizon 네트워크 토폴로지 화면으로 네트워크 분리 구조를 시각화
+  aws_bridge: 로컬 네트워크 모드와 OpenStack Neutron 흐름을 AWS VPC/Subnet/Route/SG와 비교한다.
   recommended_advanced_order:
   - 12-1
   - 12-5
@@ -85,5 +85,5 @@ advanced_integration:
   - 12-6
   - 12-7
   - 12-8
-  ai_extension_prompt: '현재 강의(VirtualBox 네트워크: NAT/Host-only/Bridged) 결과를 OpenStack
-    DevStack 또는 MicroStack 연계 실습으로 확장하는 체크리스트를 YAML로 작성해줘.'
+  ai_extension_prompt: '현재 강의(VirtualBox 네트워크: NAT/Host-only/Bridged) 결과를 MicroStack
+    -> DevStack -> Kolla Ansible 순서로 확장하는 네트워크 매핑 체크리스트를 YAML로 작성해줘.'

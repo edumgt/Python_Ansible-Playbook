@@ -65,15 +65,15 @@ advanced_integration:
   track_id: 12-7
   track_name: OpenStack 입문 체험(MicroStack/DevStack/Kolla Ansible)
   track_doc: ../../curriculum/advanced_tracks.yml
-  integration_objective: 로컬 실습과 AWS EC2/VPC/SG 매핑 학습 결과를 OpenStack DevStack 또는 MicroStack
-    연계 확장 시나리오와 연결한다.
+  integration_objective: 로컬 실습과 AWS EC2/VPC/SG 매핑 학습 결과를 OpenStack 입문 체험 순서(MicroStack
+    -> DevStack -> Kolla Ansible)와 연결한다.
   addon_practice:
-  - 단일 노드 DevStack 또는 MicroStack 실습
-  - Horizon 로그인 및 리소스 확인
+  - MicroStack에서 인스턴스/네트워크/보안그룹 흐름을 AWS EC2/VPC/SG와 1:1로 대응
+  - DevStack과 Kolla Ansible에서 CLI/컨테이너 관점으로 동일 리소스 생성 과정을 비교
   developer_view:
-    backend: VM과 컨테이너 차이, 인프라 계층 이해
-    frontend: 콘솔 기반 리소스 관리와 네트워크 분리 구조 시각적 이해
-  aws_bridge: OpenStack은 EC2/VPC/EBS 개념을 내부적으로 구성한 형태와 유사
+    backend: OpenStack 리소스 생성 API와 AWS 리소스 생성 API의 공통 패턴을 비교
+    frontend: Horizon과 AWS Console 화면을 함께 보며 리소스 상태 해석 정확도 향상
+  aws_bridge: OpenStack 학습 결과를 AWS EC2/VPC/SG/EBS 운영 시나리오로 직접 전이한다.
   recommended_advanced_order:
   - 12-1
   - 12-5
@@ -83,5 +83,5 @@ advanced_integration:
   - 12-6
   - 12-7
   - 12-8
-  ai_extension_prompt: 현재 강의(로컬 실습과 AWS EC2/VPC/SG 매핑) 결과를 OpenStack DevStack 또는 MicroStack
-    연계 실습으로 확장하는 체크리스트를 YAML로 작성해줘.
+  ai_extension_prompt: 현재 강의(로컬 실습과 AWS EC2/VPC/SG 매핑) 결과를 MicroStack -> DevStack ->
+    Kolla Ansible 순서로 확장하는 매핑 실습 체크리스트를 YAML로 작성해줘.

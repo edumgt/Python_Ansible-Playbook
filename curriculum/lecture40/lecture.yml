@@ -65,15 +65,15 @@ advanced_integration:
   track_id: 12-7
   track_name: OpenStack 입문 체험(MicroStack/DevStack/Kolla Ansible)
   track_doc: ../../curriculum/advanced_tracks.yml
-  integration_objective: Horizon 콘솔 운영 흐름과 IAM 관점 학습 결과를 OpenStack DevStack 또는 MicroStack
-    연계 확장 시나리오와 연결한다.
+  integration_objective: Horizon 콘솔 운영 흐름과 IAM 관점 학습 결과를 OpenStack 입문 체험 순서(MicroStack
+    -> DevStack -> Kolla Ansible)와 연결한다.
   addon_practice:
-  - 단일 노드 DevStack 또는 MicroStack 실습
-  - Horizon 로그인 및 리소스 확인
+  - MicroStack에서 Projects/Instances/Images/Networks/Volumes 메뉴를 순회하며 리소스 흐름 확인
+  - DevStack과 Kolla Ansible에서 Horizon UI 조작 결과를 Keystone/Nova/Neutron 서비스와 매핑
   developer_view:
-    backend: VM과 컨테이너 차이, 인프라 계층 이해
-    frontend: 콘솔 기반 리소스 관리와 네트워크 분리 구조 시각적 이해
-  aws_bridge: OpenStack은 EC2/VPC/EBS 개념을 내부적으로 구성한 형태와 유사
+    backend: Horizon 요청이 Keystone 인증과 Nova/Neutron API 호출로 이어지는 흐름 이해
+    frontend: 대시보드 화면 변화와 실제 리소스 상태를 연결해 운영 관점 강화
+  aws_bridge: Horizon 콘솔 흐름을 AWS Console의 IAM/EC2/VPC/EBS 화면 전환과 대응해 설명한다.
   recommended_advanced_order:
   - 12-1
   - 12-5
@@ -83,5 +83,5 @@ advanced_integration:
   - 12-6
   - 12-7
   - 12-8
-  ai_extension_prompt: 현재 강의(Horizon 콘솔 운영 흐름과 IAM 관점) 결과를 OpenStack DevStack 또는 MicroStack
-    연계 실습으로 확장하는 체크리스트를 YAML로 작성해줘.
+  ai_extension_prompt: 현재 강의(Horizon 콘솔 운영 흐름과 IAM 관점) 결과를 MicroStack -> DevStack
+    -> Kolla Ansible 순서로 확장하는 콘솔 기반 실습 체크리스트를 YAML로 작성해줘.

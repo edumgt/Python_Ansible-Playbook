@@ -1,18 +1,25 @@
 # Python Ansible Playbook: Ansible-First 45 Lecture Curriculum
 
-이 저장소는 **Ansible를 먼저 익히고**, 이후 Docker, k3s, AWS/OpenStack 개념으로 확장하는 실습형 학습 저장소입니다.
+이 저장소는 **Ansible를 먼저 익히고**, 이후 AWS/OpenStack 실습으로 확장하는 실습형 학습 저장소입니다.  
+Docker/k8s는 운영 심화보다 개념 연결을 위한 보조 범위로 다룹니다.
 
 핵심은 다음 3가지입니다.
 
 - `lecture01~lecture45`까지 단계형 커리큘럼
-- 각 강의 폴더에 `lecture.yml` + `playbook.yml` 제공
+- 각 강의 폴더에 `lecture.yml` + `playbook.yml` + `README.md` 제공
 - AI 보조 프롬프트를 활용한 실습/회고 루프
 
 ## 1. 학습 목표
 
 - 반복되는 서버 작업을 Ansible Playbook으로 자동화한다.
-- Docker/k3s/AWS 실습을 Ansible 기반 운영 관점으로 연결한다.
+- AWS/OpenStack 실습을 Ansible 기반 운영 관점으로 연결한다.
+- Docker/k8s는 필수 운영 심화가 아닌 보조 학습 범위로 제한해 학습 부담을 줄인다.
 - YAML 문서 중심으로 설치/검증/회고를 일관되게 진행한다.
+
+### 1.1 기술 스택 우선순위
+
+- **핵심(Primary)**: `Ansible`, `YAML`, `Python`, `Linux`, `AWS`, `OpenStack`
+- **보조(Secondary)**: `Docker`, `k3s/Kubernetes` (개념 확인 및 연결 중심)
 
 ## 2. 저장소 구조
 
@@ -58,16 +65,19 @@ Python_Ansible-Playbook/
     ├── learning_path.yml
     ├── lecture01/
     │   ├── lecture.yml
-    │   └── playbook.yml
+    │   ├── playbook.yml
+    │   └── README.md
     ├── ...
     └── lecture45/
         ├── lecture.yml
-        └── playbook.yml
+        ├── playbook.yml
+        └── README.md
 ```
 
 ## 3. 커리큘럼 운영 원칙
 
 - **Ansible 선행**: lecture01~25를 Ansible 중심으로 먼저 배치
+- **기술스택 우선순위**: Ansible/AWS/OpenStack 핵심, Docker/k8s는 축약 운영
 - **YAML 중심**: 강의 정의/설치/실습은 `lecture.yml`에 명시
 - **실행 파일 분리**: 강의 실행용 `playbook.yml`과 기존 레퍼런스 플레이북을 병행
 - **AI 페어링**: 모든 강의에 `ai_pairing` 프롬프트 포함
@@ -77,10 +87,10 @@ Python_Ansible-Playbook/
 | Lecture Range | Module | Outcome |
 |---|---|---|
 | lecture01-lecture10 | Ansible Foundation | 인벤토리/변수/템플릿/Role 기반 자동화 기초 완성 |
-| lecture11-lecture18 | Ansible Operations | 웹/컨테이너/보안 자동화 운영 패턴 습득 |
+| lecture11-lecture18 | Ansible Operations | 웹/보안 자동화 중심 운영 패턴 습득 (Docker는 실습 보조) |
 | lecture19-lecture25 | AWS Automation with Ansible | SSM/VPC/EC2/S3 생성과 정리 자동화 |
-| lecture26-lecture32 | Infra & Docker Fundamentals | Linux/VirtualBox/Docker 실행 기반 이해 |
-| lecture33-lecture38 | k3s & Kubernetes Operations | k3s 구조와 배포/관측 패턴 이해 |
+| lecture26-lecture32 | Infra & Docker Fundamentals | Linux/VirtualBox 중심 기반 학습 + Docker 최소 체험 |
+| lecture33-lecture38 | k3s & Kubernetes Operations | k3s 구조 개요/배포 흐름 이해 (운영 심화 제외) |
 | lecture39-lecture42 | Cloud Mapping | OpenStack/AWS 개념 매핑 |
 | lecture43-lecture45 | OpenStack Hands-on Experience | MicroStack/DevStack/Kolla Ansible 비교로 OpenStack 실체 이해 |
 
@@ -90,11 +100,13 @@ Python_Ansible-Playbook/
 
 - `lecture.yml`: 학습 목표, 기술 스택, 설치 방안, AI 프롬프트, 참조 플레이북
 - `playbook.yml`: 강의 실습용 Ansible Playbook
+- `README.md`: 강의별 상세 설명(학습 흐름, 기술 스택 반영 포인트, 실행/검증 절차)
 
 예시: `curriculum/lecture12/`
 
-- `lecture.yml` → Docker Engine 설치 자동화 학습 설계
+- `lecture.yml` → 강의 목표/기술스택/실습 정의
 - `playbook.yml` → 강의용 설치/검증 태스크
+- `README.md` → 강의 상세 안내 및 체크리스트
 
 ## 6. 빠른 시작
 
@@ -169,7 +181,7 @@ ansible-playbook -i inventories/local/hosts.ini playbooks/00_ping.yml
 - lecture24: AWS 출력값 수집과 결과 정리
 - lecture25: AWS 실습 자원 정리 자동화
 
-### Module D: Infra & Docker Fundamentals (26-32)
+### Module D: Infra & Docker Fundamentals (26-32, 축약 운영)
 
 - lecture26: Linux 운영 기본기: 프로세스/로그/서비스
 - lecture27: VirtualBox 네트워크: NAT/Host-only/Bridged
@@ -179,7 +191,7 @@ ansible-playbook -i inventories/local/hosts.ini playbooks/00_ping.yml
 - lecture31: Docker 네트워크/볼륨/데이터 영속성
 - lecture32: 멀티서비스 Compose 운영 패턴
 
-### Module E: k3s & Kubernetes Operations (33-38)
+### Module E: k3s & Kubernetes Operations (33-38, 개요 중심)
 
 - lecture33: k3s 아키텍처와 Kubernetes 핵심 리소스
 - lecture34: k3s 서버 노드 준비 자동화 설계
@@ -216,7 +228,8 @@ find curriculum -maxdepth 2 -type f -name 'playbook.yml' | wc -l
 ## 12. 추가 확장 학습 트랙 (45강 반영)
 
 기본 45강 이후 실무형으로 확장하기 위한 선택 심화 트랙입니다.  
-이번 개편에서는 아래 8개 트랙을 `curriculum/advanced_tracks.yml`로 정의했고, 모든 `lecture.yml`에 `advanced_integration` 필드를 추가해 각 강의와 연결했습니다.
+이번 개편에서는 아래 8개 트랙을 `curriculum/advanced_tracks.yml`로 정의했고, 모든 `lecture.yml`에 `advanced_integration` 필드를 추가해 각 강의와 연결했습니다.  
+`12-1`, `12-2`, `12-8`의 Docker/k8s 계열 항목은 필수 코어가 아니라 선택 심화로 운영합니다.
 
 ### 12-1. Docker Compose 추가
 
