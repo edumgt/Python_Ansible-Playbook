@@ -1,0 +1,492 @@
+course:
+  name: Ansible-First Local Cloud Lab (45 Lectures)
+  language: ko-KR
+  total_lectures: 45
+  default_inventory: ../inventories/local/hosts.ini
+  policy:
+  - Ansible 학습을 선행하고 이후 Docker/k3s/AWS/OpenStack으로 확장한다.
+  - 각 강의는 lecture.yml + playbook.yml 조합으로 진행한다.
+  - AI 코치 프롬프트를 매 강의에서 사용해 실습 속도를 높인다.
+modules:
+- range: lecture01-lecture10
+  name: Ansible Foundation
+  outcome: 인벤토리/변수/템플릿/역할 기반 자동화 기초 완성
+- range: lecture11-lecture18
+  name: Ansible Operations
+  outcome: 웹서버/컨테이너/보안 자동화 운영 패턴 습득
+- range: lecture19-lecture25
+  name: AWS Automation with Ansible
+  outcome: SSM/VPC/EC2/S3 생성과 정리 자동화
+- range: lecture26-lecture32
+  name: Infra & Docker Fundamentals
+  outcome: Linux, VirtualBox, Docker 실행 기반 이해
+- range: lecture33-lecture38
+  name: k3s & Kubernetes Operations
+  outcome: k3s 클러스터 구조와 배포/관측 패턴 이해
+- range: lecture39-lecture42
+  name: Cloud Mapping
+  outcome: OpenStack/AWS 개념 매핑으로 클라우드 이해 확장
+- range: lecture43-lecture45
+  name: Capstone
+  outcome: 통합 배포 리허설과 운영 Runbook 완성
+lectures:
+- id: lecture01
+  title: Ansible 학습환경 진단과 컨트롤 노드 준비
+  module: ansible_foundation
+  folder: ./lecture01
+  lecture_file: ./lecture01/lecture.yml
+  playbook_file: ./lecture01/playbook.yml
+  reference_playbook: ../playbooks/00_ping.yml
+  default_run: ansible-playbook -i ../inventories/local/hosts.ini ./lecture01/playbook.yml
+  advanced_track_id: 12-3
+  advanced_track_name: GitHub Actions 기반 CI 추가
+- id: lecture02
+  title: Inventory 구조와 host/group 변수 설계
+  module: ansible_foundation
+  folder: ./lecture02
+  lecture_file: ./lecture02/lecture.yml
+  playbook_file: ./lecture02/playbook.yml
+  reference_playbook: ../playbooks/00_bootstrap.yml
+  default_run: ansible-playbook -i ../inventories/local/hosts.ini ./lecture02/playbook.yml
+  advanced_track_id: 12-1
+  advanced_track_name: Docker Compose 추가
+- id: lecture03
+  title: Ad-hoc 명령과 연결 테스트 자동화
+  module: ansible_foundation
+  folder: ./lecture03
+  lecture_file: ./lecture03/lecture.yml
+  playbook_file: ./lecture03/playbook.yml
+  reference_playbook: ../playbooks/learning/01_ping.yml
+  default_run: ansible-playbook -i ../inventories/local/hosts.ini ./lecture03/playbook.yml
+  advanced_track_id: 12-6
+  advanced_track_name: 모니터링(Prometheus/Grafana) 추가
+- id: lecture04
+  title: 변수, facts, register 실습
+  module: ansible_foundation
+  folder: ./lecture04
+  lecture_file: ./lecture04/lecture.yml
+  playbook_file: ./lecture04/playbook.yml
+  reference_playbook: ../playbooks/learning/02_vars.yml
+  default_run: ansible-playbook -i ../inventories/local/hosts.ini ./lecture04/playbook.yml
+  advanced_track_id: 12-5
+  advanced_track_name: PostgreSQL / Redis 추가
+- id: lecture05
+  title: loop, when, block 제어문 실습
+  module: ansible_foundation
+  folder: ./lecture05
+  lecture_file: ./lecture05/lecture.yml
+  playbook_file: ./lecture05/playbook.yml
+  reference_playbook: ../playbooks/learning/03_loop_when.yml
+  default_run: ansible-playbook -i ../inventories/local/hosts.ini ./lecture05/playbook.yml
+  advanced_track_id: 12-4
+  advanced_track_name: Nginx reverse proxy 심화
+- id: lecture06
+  title: Jinja2 템플릿과 설정 파일 생성
+  module: ansible_foundation
+  folder: ./lecture06
+  lecture_file: ./lecture06/lecture.yml
+  playbook_file: ./lecture06/playbook.yml
+  reference_playbook: ../playbooks/learning/04_template_handler.yml
+  default_run: ansible-playbook -i ../inventories/local/hosts.ini ./lecture06/playbook.yml
+  advanced_track_id: 12-2
+  advanced_track_name: Helm Chart 추가
+- id: lecture07
+  title: handler와 idempotency 검증
+  module: ansible_foundation
+  folder: ./lecture07
+  lecture_file: ./lecture07/lecture.yml
+  playbook_file: ./lecture07/playbook.yml
+  reference_playbook: ../playbooks/learning/04_template_handler.yml
+  default_run: ansible-playbook -i ../inventories/local/hosts.ini ./lecture07/playbook.yml
+  advanced_track_id: 12-6
+  advanced_track_name: 모니터링(Prometheus/Grafana) 추가
+- id: lecture08
+  title: Role 구조 분해와 재사용 설계
+  module: ansible_foundation
+  folder: ./lecture08
+  lecture_file: ./lecture08/lecture.yml
+  playbook_file: ./lecture08/playbook.yml
+  reference_playbook: ../playbooks/03_role_web.yml
+  default_run: ansible-playbook -i ../inventories/local/hosts.ini ./lecture08/playbook.yml
+  advanced_track_id: 12-3
+  advanced_track_name: GitHub Actions 기반 CI 추가
+- id: lecture09
+  title: 공통 서버 부트스트랩 자동화
+  module: ansible_foundation
+  folder: ./lecture09
+  lecture_file: ./lecture09/lecture.yml
+  playbook_file: ./lecture09/playbook.yml
+  reference_playbook: ../playbooks/00_bootstrap.yml
+  default_run: ansible-playbook -i ../inventories/local/hosts.ini ./lecture09/playbook.yml
+  advanced_track_id: 12-1
+  advanced_track_name: Docker Compose 추가
+- id: lecture10
+  title: 사용자/권한/SSH 정책 자동화
+  module: ansible_foundation
+  folder: ./lecture10
+  lecture_file: ./lecture10/lecture.yml
+  playbook_file: ./lecture10/playbook.yml
+  reference_playbook: ../playbooks/01_users.yml
+  default_run: ansible-playbook -i ../inventories/local/hosts.ini ./lecture10/playbook.yml
+  advanced_track_id: 12-4
+  advanced_track_name: Nginx reverse proxy 심화
+- id: lecture11
+  title: Nginx 설치와 웹 서비스 배포 자동화
+  module: ansible_operations
+  folder: ./lecture11
+  lecture_file: ./lecture11/lecture.yml
+  playbook_file: ./lecture11/playbook.yml
+  reference_playbook: ../playbooks/02_nginx.yml
+  default_run: ansible-playbook -i ../inventories/local/hosts.ini ./lecture11/playbook.yml
+  advanced_track_id: 12-4
+  advanced_track_name: Nginx reverse proxy 심화
+- id: lecture12
+  title: Docker Engine 설치 자동화
+  module: ansible_operations
+  folder: ./lecture12
+  lecture_file: ./lecture12/lecture.yml
+  playbook_file: ./lecture12/playbook.yml
+  reference_playbook: ../playbooks/10_docker_engine_install.yml
+  default_run: ansible-playbook -i ../inventories/local/hosts.ini ./lecture12/playbook.yml
+  advanced_track_id: 12-1
+  advanced_track_name: Docker Compose 추가
+- id: lecture13
+  title: Compose 스택 배포 자동화
+  module: ansible_operations
+  folder: ./lecture13
+  lecture_file: ./lecture13/lecture.yml
+  playbook_file: ./lecture13/playbook.yml
+  reference_playbook: ../playbooks/11_deploy_stack.yml
+  default_run: ansible-playbook -i ../inventories/local/hosts.ini ./lecture13/playbook.yml
+  advanced_track_id: 12-1
+  advanced_track_name: Docker Compose 추가
+- id: lecture14
+  title: Rolling Update 배포 실습
+  module: ansible_operations
+  folder: ./lecture14
+  lecture_file: ./lecture14/lecture.yml
+  playbook_file: ./lecture14/playbook.yml
+  reference_playbook: ../playbooks/12_deploy_stack_rolling.yml
+  default_run: ansible-playbook -i ../inventories/local/hosts.ini ./lecture14/playbook.yml
+  advanced_track_id: 12-1
+  advanced_track_name: Docker Compose 추가
+- id: lecture15
+  title: Blue/Green 전환 자동화
+  module: ansible_operations
+  folder: ./lecture15
+  lecture_file: ./lecture15/lecture.yml
+  playbook_file: ./lecture15/playbook.yml
+  reference_playbook: ../playbooks/13_blue_green_switch.yml
+  default_run: ansible-playbook -i ../inventories/local/hosts.ini ./lecture15/playbook.yml
+  advanced_track_id: 12-4
+  advanced_track_name: Nginx reverse proxy 심화
+- id: lecture16
+  title: Trivy 기반 컨테이너 취약점 점검
+  module: ansible_operations
+  folder: ./lecture16
+  lecture_file: ./lecture16/lecture.yml
+  playbook_file: ./lecture16/playbook.yml
+  reference_playbook: ../playbooks/91_trivy_scan.yml
+  default_run: ansible-playbook -i ../inventories/local/hosts.ini ./lecture16/playbook.yml
+  advanced_track_id: 12-6
+  advanced_track_name: 모니터링(Prometheus/Grafana) 추가
+- id: lecture17
+  title: Docker Bench 점검과 보고서 자동화
+  module: ansible_operations
+  folder: ./lecture17
+  lecture_file: ./lecture17/lecture.yml
+  playbook_file: ./lecture17/playbook.yml
+  reference_playbook: ../playbooks/92_docker_bench.yml
+  default_run: ansible-playbook -i ../inventories/local/hosts.ini ./lecture17/playbook.yml
+  advanced_track_id: 12-6
+  advanced_track_name: 모니터링(Prometheus/Grafana) 추가
+- id: lecture18
+  title: CrowdSec + Nginx 보안 실습 자동화
+  module: ansible_operations
+  folder: ./lecture18
+  lecture_file: ./lecture18/lecture.yml
+  playbook_file: ./lecture18/playbook.yml
+  reference_playbook: ../playbooks/93_crowdsec_nginx_lab.yml
+  default_run: ansible-playbook -i ../inventories/local/hosts.ini ./lecture18/playbook.yml
+  advanced_track_id: 12-6
+  advanced_track_name: 모니터링(Prometheus/Grafana) 추가
+- id: lecture19
+  title: AWS SSM 기반 무SSH 프로비저닝
+  module: aws_automation
+  folder: ./lecture19
+  lecture_file: ./lecture19/lecture.yml
+  playbook_file: ./lecture19/playbook.yml
+  reference_playbook: ../playbooks/20_aws_provision_ssm_no_ssh.yml
+  default_run: ansible-playbook -i ../inventories/local/hosts.ini ./lecture19/playbook.yml
+  advanced_track_id: 12-3
+  advanced_track_name: GitHub Actions 기반 CI 추가
+- id: lecture20
+  title: AWS VPC 네트워크 생성 자동화
+  module: aws_automation
+  folder: ./lecture20
+  lecture_file: ./lecture20/lecture.yml
+  playbook_file: ./lecture20/playbook.yml
+  reference_playbook: ../playbooks/20_aws_create_vpc.yml
+  default_run: ansible-playbook -i ../inventories/local/hosts.ini ./lecture20/playbook.yml
+  advanced_track_id: 12-7
+  advanced_track_name: OpenStack DevStack 또는 MicroStack 연계
+- id: lecture21
+  title: AWS EC2 인스턴스 생성 자동화
+  module: aws_automation
+  folder: ./lecture21
+  lecture_file: ./lecture21/lecture.yml
+  playbook_file: ./lecture21/playbook.yml
+  reference_playbook: ../playbooks/21_aws_create_ec2.yml
+  default_run: ansible-playbook -i ../inventories/local/hosts.ini ./lecture21/playbook.yml
+  advanced_track_id: 12-8
+  advanced_track_name: k3s 대신 kubeadm 또는 managed EKS 확장 비교
+- id: lecture22
+  title: 생성 후 SSM 기반 후속 설정 자동화
+  module: aws_automation
+  folder: ./lecture22
+  lecture_file: ./lecture22/lecture.yml
+  playbook_file: ./lecture22/playbook.yml
+  reference_playbook: ../playbooks/21_post_provision_via_ssm.yml
+  default_run: ansible-playbook -i ../inventories/local/hosts.ini ./lecture22/playbook.yml
+  advanced_track_id: 12-3
+  advanced_track_name: GitHub Actions 기반 CI 추가
+- id: lecture23
+  title: S3 버킷 생성/정책 자동화
+  module: aws_automation
+  folder: ./lecture23
+  lecture_file: ./lecture23/lecture.yml
+  playbook_file: ./lecture23/playbook.yml
+  reference_playbook: ../playbooks/22_aws_s3_bucket.yml
+  default_run: ansible-playbook -i ../inventories/local/hosts.ini ./lecture23/playbook.yml
+  advanced_track_id: 12-5
+  advanced_track_name: PostgreSQL / Redis 추가
+- id: lecture24
+  title: AWS 출력값 수집과 결과 정리
+  module: aws_automation
+  folder: ./lecture24
+  lecture_file: ./lecture24/lecture.yml
+  playbook_file: ./lecture24/playbook.yml
+  reference_playbook: ../playbooks/aws_outputs.yml
+  default_run: ansible-playbook -i ../inventories/local/hosts.ini ./lecture24/playbook.yml
+  advanced_track_id: 12-3
+  advanced_track_name: GitHub Actions 기반 CI 추가
+- id: lecture25
+  title: AWS 실습 자원 정리 자동화
+  module: aws_automation
+  folder: ./lecture25
+  lecture_file: ./lecture25/lecture.yml
+  playbook_file: ./lecture25/playbook.yml
+  reference_playbook: ../playbooks/23_aws_cleanup.yml
+  default_run: ansible-playbook -i ../inventories/local/hosts.ini ./lecture25/playbook.yml
+  advanced_track_id: 12-6
+  advanced_track_name: 모니터링(Prometheus/Grafana) 추가
+- id: lecture26
+  title: 'Linux 운영 기본기: 프로세스/로그/서비스'
+  module: infra_basics
+  folder: ./lecture26
+  lecture_file: ./lecture26/lecture.yml
+  playbook_file: ./lecture26/playbook.yml
+  reference_playbook: ../playbooks/00_bootstrap.yml
+  default_run: ansible-playbook -i ../inventories/local/hosts.ini ./lecture26/playbook.yml
+  advanced_track_id: 12-6
+  advanced_track_name: 모니터링(Prometheus/Grafana) 추가
+- id: lecture27
+  title: 'VirtualBox 네트워크: NAT/Host-only/Bridged'
+  module: infra_basics
+  folder: ./lecture27
+  lecture_file: ./lecture27/lecture.yml
+  playbook_file: ./lecture27/playbook.yml
+  reference_playbook: ../playbooks/00_ping.yml
+  default_run: ansible-playbook -i ../inventories/local/hosts.ini ./lecture27/playbook.yml
+  advanced_track_id: 12-7
+  advanced_track_name: OpenStack DevStack 또는 MicroStack 연계
+- id: lecture28
+  title: 'Docker 기초: 이미지/컨테이너/레지스트리'
+  module: infra_basics
+  folder: ./lecture28
+  lecture_file: ./lecture28/lecture.yml
+  playbook_file: ./lecture28/playbook.yml
+  reference_playbook: ../playbooks/10_docker_install.yml
+  default_run: ansible-playbook -i ../inventories/local/hosts.ini ./lecture28/playbook.yml
+  advanced_track_id: 12-1
+  advanced_track_name: Docker Compose 추가
+- id: lecture29
+  title: 백엔드 컨테이너 실행 흐름 이해
+  module: infra_basics
+  folder: ./lecture29
+  lecture_file: ./lecture29/lecture.yml
+  playbook_file: ./lecture29/playbook.yml
+  reference_playbook: ../playbooks/11_docker_run_nginx.yml
+  default_run: ansible-playbook -i ../inventories/local/hosts.ini ./lecture29/playbook.yml
+  advanced_track_id: 12-5
+  advanced_track_name: PostgreSQL / Redis 추가
+- id: lecture30
+  title: 프론트엔드 정적 배포와 Nginx 연동
+  module: infra_basics
+  folder: ./lecture30
+  lecture_file: ./lecture30/lecture.yml
+  playbook_file: ./lecture30/playbook.yml
+  reference_playbook: ../playbooks/11_deploy_stack.yml
+  default_run: ansible-playbook -i ../inventories/local/hosts.ini ./lecture30/playbook.yml
+  advanced_track_id: 12-4
+  advanced_track_name: Nginx reverse proxy 심화
+- id: lecture31
+  title: Docker 네트워크/볼륨/데이터 영속성
+  module: infra_basics
+  folder: ./lecture31
+  lecture_file: ./lecture31/lecture.yml
+  playbook_file: ./lecture31/playbook.yml
+  reference_playbook: ../playbooks/11_deploy_stack.yml
+  default_run: ansible-playbook -i ../inventories/local/hosts.ini ./lecture31/playbook.yml
+  advanced_track_id: 12-5
+  advanced_track_name: PostgreSQL / Redis 추가
+- id: lecture32
+  title: 멀티서비스 Compose 운영 패턴
+  module: infra_basics
+  folder: ./lecture32
+  lecture_file: ./lecture32/lecture.yml
+  playbook_file: ./lecture32/playbook.yml
+  reference_playbook: ../playbooks/12_deploy_stack_rolling.yml
+  default_run: ansible-playbook -i ../inventories/local/hosts.ini ./lecture32/playbook.yml
+  advanced_track_id: 12-1
+  advanced_track_name: Docker Compose 추가
+- id: lecture33
+  title: k3s 아키텍처와 Kubernetes 핵심 리소스
+  module: k8s_ops
+  folder: ./lecture33
+  lecture_file: ./lecture33/lecture.yml
+  playbook_file: ./lecture33/playbook.yml
+  reference_playbook: ../playbooks/12_deploy_stack_rolling.yml
+  default_run: ansible-playbook -i ../inventories/local/hosts.ini ./lecture33/playbook.yml
+  advanced_track_id: 12-8
+  advanced_track_name: k3s 대신 kubeadm 또는 managed EKS 확장 비교
+- id: lecture34
+  title: k3s 서버 노드 준비 자동화 설계
+  module: k8s_ops
+  folder: ./lecture34
+  lecture_file: ./lecture34/lecture.yml
+  playbook_file: ./lecture34/playbook.yml
+  reference_playbook: ../playbooks/10_docker_engine_install.yml
+  default_run: ansible-playbook -i ../inventories/local/hosts.ini ./lecture34/playbook.yml
+  advanced_track_id: 12-8
+  advanced_track_name: k3s 대신 kubeadm 또는 managed EKS 확장 비교
+- id: lecture35
+  title: k3s 에이전트 조인 자동화 설계
+  module: k8s_ops
+  folder: ./lecture35
+  lecture_file: ./lecture35/lecture.yml
+  playbook_file: ./lecture35/playbook.yml
+  reference_playbook: ../playbooks/10_docker_engine_install.yml
+  default_run: ansible-playbook -i ../inventories/local/hosts.ini ./lecture35/playbook.yml
+  advanced_track_id: 12-8
+  advanced_track_name: k3s 대신 kubeadm 또는 managed EKS 확장 비교
+- id: lecture36
+  title: Deployment/Service 선언형 배포 실습
+  module: k8s_ops
+  folder: ./lecture36
+  lecture_file: ./lecture36/lecture.yml
+  playbook_file: ./lecture36/playbook.yml
+  reference_playbook: ../playbooks/11_deploy_stack.yml
+  default_run: ansible-playbook -i ../inventories/local/hosts.ini ./lecture36/playbook.yml
+  advanced_track_id: 12-2
+  advanced_track_name: Helm Chart 추가
+- id: lecture37
+  title: Ingress와 외부 트래픽 라우팅
+  module: k8s_ops
+  folder: ./lecture37
+  lecture_file: ./lecture37/lecture.yml
+  playbook_file: ./lecture37/playbook.yml
+  reference_playbook: ../playbooks/13_blue_green_switch.yml
+  default_run: ansible-playbook -i ../inventories/local/hosts.ini ./lecture37/playbook.yml
+  advanced_track_id: 12-2
+  advanced_track_name: Helm Chart 추가
+- id: lecture38
+  title: 클러스터 로그/상태 관측 기초
+  module: k8s_ops
+  folder: ./lecture38
+  lecture_file: ./lecture38/lecture.yml
+  playbook_file: ./lecture38/playbook.yml
+  reference_playbook: ../playbooks/check_nginx.yml
+  default_run: ansible-playbook -i ../inventories/local/hosts.ini ./lecture38/playbook.yml
+  advanced_track_id: 12-6
+  advanced_track_name: 모니터링(Prometheus/Grafana) 추가
+- id: lecture39
+  title: OpenStack Neutron 네트워크 개념 매핑
+  module: cloud_mapping
+  folder: ./lecture39
+  lecture_file: ./lecture39/lecture.yml
+  playbook_file: ./lecture39/playbook.yml
+  reference_playbook: ../playbooks/00_ping.yml
+  default_run: ansible-playbook -i ../inventories/local/hosts.ini ./lecture39/playbook.yml
+  advanced_track_id: 12-7
+  advanced_track_name: OpenStack DevStack 또는 MicroStack 연계
+- id: lecture40
+  title: Horizon 콘솔 운영 흐름과 IAM 관점
+  module: cloud_mapping
+  folder: ./lecture40
+  lecture_file: ./lecture40/lecture.yml
+  playbook_file: ./lecture40/playbook.yml
+  reference_playbook: ../playbooks/aws_outputs.yml
+  default_run: ansible-playbook -i ../inventories/local/hosts.ini ./lecture40/playbook.yml
+  advanced_track_id: 12-7
+  advanced_track_name: OpenStack DevStack 또는 MicroStack 연계
+- id: lecture41
+  title: 로컬 실습과 AWS EC2/VPC/SG 매핑
+  module: cloud_mapping
+  folder: ./lecture41
+  lecture_file: ./lecture41/lecture.yml
+  playbook_file: ./lecture41/playbook.yml
+  reference_playbook: ../playbooks/20_aws_create_vpc.yml
+  default_run: ansible-playbook -i ../inventories/local/hosts.ini ./lecture41/playbook.yml
+  advanced_track_id: 12-7
+  advanced_track_name: OpenStack DevStack 또는 MicroStack 연계
+- id: lecture42
+  title: ECR/ECS/EKS/IaC 확장 전략 수립
+  module: cloud_mapping
+  folder: ./lecture42
+  lecture_file: ./lecture42/lecture.yml
+  playbook_file: ./lecture42/playbook.yml
+  reference_playbook: ../playbooks/21_aws_create_ec2.yml
+  default_run: ansible-playbook -i ../inventories/local/hosts.ini ./lecture42/playbook.yml
+  advanced_track_id: 12-8
+  advanced_track_name: k3s 대신 kubeadm 또는 managed EKS 확장 비교
+- id: lecture43
+  title: 통합 아키텍처 설계 워크숍
+  module: capstone
+  folder: ./lecture43
+  lecture_file: ./lecture43/lecture.yml
+  playbook_file: ./lecture43/playbook.yml
+  reference_playbook: ../playbooks/11_deploy_stack.yml
+  default_run: ansible-playbook -i ../inventories/local/hosts.ini ./lecture43/playbook.yml
+  advanced_track_id: 12-3
+  advanced_track_name: GitHub Actions 기반 CI 추가
+- id: lecture44
+  title: 통합 배포 리허설과 장애 대응
+  module: capstone
+  folder: ./lecture44
+  lecture_file: ./lecture44/lecture.yml
+  playbook_file: ./lecture44/playbook.yml
+  reference_playbook: ../playbooks/12_deploy_stack_rolling.yml
+  default_run: ansible-playbook -i ../inventories/local/hosts.ini ./lecture44/playbook.yml
+  advanced_track_id: 12-2
+  advanced_track_name: Helm Chart 추가
+- id: lecture45
+  title: '최종 캡스톤: 운영 Runbook 완성'
+  module: capstone
+  folder: ./lecture45
+  lecture_file: ./lecture45/lecture.yml
+  playbook_file: ./lecture45/playbook.yml
+  reference_playbook: ../playbooks/docker_report.yml
+  default_run: ansible-playbook -i ../inventories/local/hosts.ini ./lecture45/playbook.yml
+  advanced_track_id: 12-6
+  advanced_track_name: 모니터링(Prometheus/Grafana) 추가
+advanced_tracks_ref: ./advanced_tracks.yml
+advanced_recommended_order:
+- 12-1
+- 12-5
+- 12-4
+- 12-3
+- 12-2
+- 12-6
+- 12-7
+- 12-8

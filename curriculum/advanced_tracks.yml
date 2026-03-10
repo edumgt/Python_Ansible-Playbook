@@ -1,0 +1,203 @@
+advanced_tracks:
+  description: 기본 45강 이후 실무형 확장을 위한 선택 심화 트랙
+  tracks:
+  - id: 12-1
+    name: Docker Compose 추가
+    learning_purpose:
+    - 여러 컨테이너를 하나의 애플리케이션 스택처럼 함께 실행하는 방법을 익힌다.
+    - 백엔드, 프론트엔드, DB, Redis를 하나의 개발/테스트 환경으로 구성한다.
+    - ECS/Kubernetes 멀티서비스 배포 개념으로 확장할 수 있다.
+    learning_topics:
+    - docker compose 기본 구조
+    - services, ports, volumes, environment, depends_on
+    - 멀티컨테이너 애플리케이션 구성
+    - .env 파일 기반 설정 분리
+    practice_examples:
+    - frontend + backend + postgres + redis 구성
+    - docker-compose.yml 작성과 일괄 기동/중지
+    - 서비스 간 네트워크 및 의존관계 확인
+    developer_view:
+      backend: API 서버 + DB + Redis를 한 번에 실행하는 구조 이해
+      frontend: 정적 웹 + API + 인증/세션 백엔드 연결 구조 이해
+    aws_links:
+    - Compose 정의는 ECS Task 또는 Kubernetes 다중 리소스 분리 전 단계
+    - Compose 네트워크는 서비스 간 내부 통신 구조 이해에 유효
+    - Compose 볼륨은 영속 저장소 개념 이해에 유효
+  - id: 12-2
+    name: Helm Chart 추가
+    learning_purpose:
+    - Kubernetes 리소스를 패키지처럼 배포하는 방식을 이해한다.
+    - dev/stage/prod 설정을 values 파일로 분리하는 방법을 익힌다.
+    learning_topics:
+    - Helm 개념
+    - Chart 구조
+    - templates, values.yaml, Chart.yaml
+    - 환경별 값 분리
+    practice_examples:
+    - backend/frontend Helm Chart 작성
+    - values-dev.yaml / values-prod.yaml 분리
+    - replica, image tag, environment 값 변경 실습
+    developer_view:
+      backend: DB 접속정보, replica, tag 버전 관리 자동화
+      frontend: API endpoint, ingress host, static 서비스 설정 관리
+    aws_links:
+    - Helm은 EKS 운영에서 가장 자주 접하는 패키지형 배포 도구
+    - GitOps/Argo CD/배포 표준화로 확장 가능
+  - id: 12-3
+    name: GitHub Actions 기반 CI 추가
+    learning_purpose:
+    - 코드 변경 후 테스트/빌드/배포 준비를 자동 수행하는 CI 흐름을 익힌다.
+    - Git 기반 협업과 배포 자동화 개념을 이해한다.
+    learning_topics:
+    - workflow, job, step 구조
+    - Docker image build 자동화
+    - 테스트 자동화
+    - artifact와 registry push 개념
+    practice_examples:
+    - backend push 시 테스트 실행
+    - Docker image build 및 tag 자동 생성
+    - 추후 ECR push 확장 가능한 workflow 설계
+    developer_view:
+      backend: merge 시 자동 테스트/빌드 파이프라인 이해
+      frontend: 빌드 결과물 생성과 배포 자동화 이해
+    aws_links:
+    - GitHub Actions -> ECR push -> ECS/EKS 배포 흐름으로 확장 가능
+    - CodeBuild/CodePipeline/Argo CD와 비교 가능
+  - id: 12-4
+    name: Nginx reverse proxy 심화
+    learning_purpose:
+    - 웹 서비스 앞단 reverse proxy 역할을 이해한다.
+    - 프론트엔드/백엔드/API 라우팅 구조를 실무 관점으로 학습한다.
+    learning_topics:
+    - upstream 설정
+    - location 기반 라우팅
+    - gzip/cache/header 설정 기초
+    - CORS/TLS 종료 기초
+    practice_examples:
+    - / -> frontend, /api -> backend 라우팅
+    - 정적 리소스 캐싱 설정
+    - 보안 헤더 및 에러 페이지 추가
+    developer_view:
+      backend: API 서버를 프록시 뒤에 배치하는 이유 이해
+      frontend: SPA 라우팅/정적 캐싱/API 프록시 구조 이해
+    aws_links:
+    - ALB + Nginx + Ingress Controller 구조 이해의 기반
+    - Ingress, CloudFront, API Gateway 개념으로 연결 가능
+  - id: 12-5
+    name: PostgreSQL / Redis 추가
+    learning_purpose:
+    - 상태 저장 계층을 포함한 서비스 아키텍처를 이해한다.
+    - DB/캐시가 컨테이너/쿠버네티스에서 연결되는 방식을 체감한다.
+    learning_topics:
+    - PostgreSQL 역할
+    - Redis 역할
+    - 영속 데이터와 휘발성 데이터 차이
+    - 세션/캐시/큐 기초
+    practice_examples:
+    - backend PostgreSQL 연동
+    - Redis 캐시 또는 rate limit 실습
+    - volume 기반 데이터 영속화 확인
+    developer_view:
+      backend: ORM/SQL 연결, 캐시 계층, 세션 저장 구조 이해
+      frontend: API 응답 속도와 캐시 효과 체감
+    aws_links:
+    - PostgreSQL은 RDS/Aurora 이해 기반
+    - Redis는 ElastiCache 이해 기반
+    - Local volume은 영속 데이터 저장 개념의 시작
+  - id: 12-6
+    name: 모니터링(Prometheus/Grafana) 추가
+    learning_purpose:
+    - 운영 관점에서 상태 관찰과 문제 탐지 흐름을 익힌다.
+    - 메트릭/대시보드/알림의 필요성을 이해한다.
+    learning_topics:
+    - Observability 기초
+    - Prometheus scrape 구조
+    - Grafana dashboard 기초
+    - CPU/Memory/Request/Error Rate 관찰
+    practice_examples:
+    - k3s에 Prometheus/Grafana 배포
+    - backend 메트릭 노출
+    - 응답시간/에러율 시각화
+    developer_view:
+      backend: API 응답속도/에러율/리소스 사용률 확인
+      frontend: 사용자 성능 저하 시 백엔드 상태 진단 흐름 이해
+    aws_links:
+    - CloudWatch, Managed Prometheus, Managed Grafana와 연결 가능
+    - 장애대응/알람 설계 개념으로 확장 가능
+  - id: 12-7
+    name: OpenStack DevStack 또는 MicroStack 연계
+    learning_purpose:
+    - Docker/k3s/Ansible 실습에 OpenStack 체험을 접목한다.
+    - AWS 입문 전 프라이빗 클라우드 IaaS 계층을 명확히 이해한다.
+    learning_topics:
+    - DevStack/MicroStack 개념
+    - VM, 이미지, 네트워크, 프로젝트, 콘솔 개념
+    - Neutron/Horizon 실환경 매핑
+    practice_examples:
+    - 단일 노드 DevStack 또는 MicroStack 실습
+    - 네트워크/인스턴스/Floating IP 구성
+    - Horizon 로그인 및 리소스 확인
+    developer_view:
+      backend: VM과 컨테이너 차이, 인프라 계층 이해
+      frontend: 콘솔 기반 리소스 관리와 네트워크 분리 구조 시각적 이해
+    aws_links:
+    - OpenStack은 EC2/VPC/EBS 개념을 내부적으로 구성한 형태와 유사
+    - Horizon은 AWS Console 유사 경험
+    - Neutron은 VPC/Subnet/Public IP/SG 이해 강화
+  - id: 12-8
+    name: k3s 대신 kubeadm 또는 managed EKS 확장 비교
+    learning_purpose:
+    - k3s/kubeadm/EKS 차이를 이해한다.
+    - 실습용 환경과 운영용 환경의 차이를 비교한다.
+    learning_topics:
+    - k3s 장점과 한계
+    - kubeadm 구조
+    - Managed Kubernetes(EKS) 운영 모델
+    - control plane 관리 주체/운영 난이도/비용 비교
+    practice_examples:
+    - 같은 앱의 k3s 배포 검증
+    - kubeadm 설치 흐름 비교 정리
+    - EKS에서 AWS 관리 영역과 사용자 관리 영역 분리 정리
+    developer_view:
+      backend: 내 앱에서 내가 관리할 범위의 경계 이해
+      frontend: 배포 대상 변화와 운영 책임 경계 변화 이해
+    aws_links:
+    - k3s는 쿠버네티스 개념 학습용
+    - kubeadm은 내부 구조 심화용
+    - EKS는 AWS 실무 운영 연결용
+    comparison:
+      k3s:
+        purpose: 경량 실습/엣지/소규모
+        install_difficulty: 낮음
+        ops_burden: 낮음
+        learning_fit: 매우 좋음
+        management_owner: 사용자
+        cost: 로컬 자원 중심
+      kubeadm:
+        purpose: 표준 쿠버네티스 직접 구축
+        install_difficulty: 높음
+        ops_burden: 높음
+        learning_fit: 깊이 있는 학습에 좋음
+        management_owner: 사용자
+        cost: 로컬/추가 인프라 필요
+      amazon_eks:
+        purpose: 관리형 쿠버네티스
+        install_difficulty: 중간
+        ops_burden: control plane 부담 낮음
+        learning_fit: AWS 실무 연결에 좋음
+        management_owner: AWS + 사용자
+        cost: AWS 사용 비용 발생
+  recommended_order:
+  - 12-1
+  - 12-5
+  - 12-4
+  - 12-3
+  - 12-2
+  - 12-6
+  - 12-7
+  - 12-8
+  final_goal:
+  - 멀티서비스 아키텍처를 설명하고 운영 기준을 수립할 수 있다.
+  - 로컬 컨테이너 환경과 쿠버네티스 환경의 차이를 설명할 수 있다.
+  - 네트워크/프록시/DB/캐시/모니터링/자동화를 포함한 전체 구조를 이해한다.
+  - AWS EC2, RDS, ElastiCache, ALB, ECR, ECS, EKS, CloudWatch 역할을 연결해 설명할 수 있다.
