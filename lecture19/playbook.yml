@@ -7,6 +7,7 @@
     lecture_id: "lecture19"
     lecture_title: "Kolla Ansible 배포 준비와 검증"
     install_enabled: false
+    helm_preflight_enabled: true
     reference_playbook: "../ansible/playbooks/10_docker_engine_install.yml"
     lecture_packages:
       - python3
@@ -15,6 +16,8 @@
       - curl
       - jq
       - docker.io
+      - apt-transport-https
+      - ca-certificates
   tasks:
     - name: Show lecture context
       ansible.builtin.debug:
@@ -23,12 +26,36 @@
           - "title={{ lecture_title }}"
           - "reference_playbook={{ reference_playbook }}"
           - "install_enabled={{ install_enabled }}"
+          - "helm_preflight_enabled={{ helm_preflight_enabled }}"
 
     - name: Install lecture packages when enabled
       ansible.builtin.package:
         name: "{{ lecture_packages }}"
         state: present
       when: install_enabled | bool
+
+    - name: Check kubectl availability (OpenStack-Helm preflight)
+      ansible.builtin.command: kubectl version --client --short
+      register: kubectl_version
+      changed_when: false
+      failed_when: false
+      when: helm_preflight_enabled | bool
+
+    - name: Check helm availability (OpenStack-Helm preflight)
+      ansible.builtin.command: helm version --short
+      register: helm_version
+      changed_when: false
+      failed_when: false
+      when: helm_preflight_enabled | bool
+
+    - name: Print OpenStack-Helm preflight summary
+      ansible.builtin.debug:
+        msg:
+          - "kubectl_rc={{ kubectl_version.rc | default('n/a') }}"
+          - "kubectl={{ kubectl_version.stdout | default(kubectl_version.stderr, true) | default('not-installed', true) }}"
+          - "helm_rc={{ helm_version.rc | default('n/a') }}"
+          - "helm={{ helm_version.stdout | default(helm_version.stderr, true) | default('not-installed', true) }}"
+      when: helm_preflight_enabled | bool
 
     - name: Check Python3 availability
       ansible.builtin.command: python3 --version
